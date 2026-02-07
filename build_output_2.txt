@@ -1,0 +1,25 @@
+
+> narfe@0.1.0 build
+> next build
+
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+   ▲ Next.js 16.0.10 (Turbopack)
+
+   Creating an optimized production build ...
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+ ✓ Compiled successfully in 5.8s
+   Running TypeScript ...
+Failed to compile.
+
+./src/components/profile/ItineraryList.tsx:46:29
+Type error: Property 'map' does not exist on type 'never'.
+
+[0m [90m 44 |[39m             })[33m;[39m
+ [90m 45 |[39m           } [36melse[39m [36mif[39m ([33mArray[39m[33m.[39misArray(response)) {
+[31m[1m>[22m[39m[90m 46 |[39m             data [33m=[39m response[33m.[39mmap((item[33m:[39m any) [33m=>[39m item[33m.[39mitinerary [33m||[39m item)[33m;[39m
+ [90m    |[39m                             [31m[1m^[22m[39m
+ [90m 47 |[39m           }
+ [90m 48 |[39m         } [36melse[39m {
+ [90m 49 |[39m           [90m// Fetch Created (All)[39m[0m
+Next.js build worker exited with code: 1 and signal: null

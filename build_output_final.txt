@@ -1,0 +1,26 @@
+
+> narfe@0.1.0 build
+> next build
+
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+   ▲ Next.js 16.0.10 (Turbopack)
+
+   Creating an optimized production build ...
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+ ✓ Compiled successfully in 5.7s
+   Running TypeScript ...
+Failed to compile.
+
+./src/app/(authenticated)/post/page.tsx:141:30
+Type error: Type 'PostUpload[]' is not assignable to type 'MediaItem[]'.
+  Property 'url' is missing in type 'PostUpload' but required in type 'MediaItem'.
+
+[0m [90m 139 |[39m         {[90m/* Media Section */[39m}
+ [90m 140 |[39m         [33m<[39m[33mdiv[39m className[33m=[39m[32m"aspect-[4/5] w-full rounded-2xl overflow-hidden border border-white/10 bg-black relative"[39m[33m>[39m
+[31m[1m>[22m[39m[90m 141 |[39m           [33m<[39m[33mFeedMediaCarousel[39m uploads[33m=[39m{post[33m.[39muploads} [33m/[39m[33m>[39m
+ [90m     |[39m                              [31m[1m^[22m[39m
+ [90m 142 |[39m         [33m<[39m[33m/[39m[33mdiv[39m[33m>[39m
+ [90m 143 |[39m
+ [90m 144 |[39m         {[90m/* Post Details */[39m}[0m
+Next.js build worker exited with code: 1 and signal: null

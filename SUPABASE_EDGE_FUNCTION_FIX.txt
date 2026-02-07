@@ -1,0 +1,116 @@
+
+// This is the code you need to update in your SUPERBASE EDGE FUNCTION `create-package-checkout`
+
+import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2.7.1";
+import Stripe from "https://esm.sh/stripe@12.4.0?target=deno";
+
+const corsHeaders = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Headers":
+    "authorization, x-client-info, apikey, content-type",
+};
+
+const stripe = new Stripe(Deno.env.get("STRIPE_SECRET_KEY") ?? "", {
+  apiVersion: "2022-11-15",
+  httpClient: Stripe.createFetchHttpClient(),
+});
+
+serve(async (req) => {
+  if (req.method === "OPTIONS") {
+    return new Response("ok", { headers: corsHeaders });
+  }
+
+  try {
+    // 1. Get the Authorization header from the request
+    const authHeader = req.headers.get("Authorization");
+    if (!authHeader) {
+      throw new Error("Missing Authorization header");
+    }
+
+    // 2. Initialize Supabase client
+    const supabaseClient = createClient(
+      Deno.env.get("SUPABASE_URL") ?? "",
+      Deno.env.get("SUPABASE_ANON_KEY") ?? "",
+      {
+        global: {
+          headers: { Authorization: authHeader },
+        },
+      }
+    );
+
+    // 3. Get the user from the auth header
+    const {
+      data: { user },
+    } = await supabaseClient.auth.getUser();
+
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    // 4. Parse the request body (Frontend sends package_id, success_url, cancel_url)
+    const { package_id, success_url, cancel_url } = await req.json();
+
+    if (!package_id) {
+      throw new Error("Missing package_id");
+    }
+
+    // 5. Fetch package details from database
+    const { data: pkg, error: pkgError } = await supabaseClient
+      .from("packages")
+      .select("*")
+      .eq("id", package_id)
+      .single();
+
+    if (pkgError || !pkg) {
+      throw new Error("Package not found");
+    }
+
+    // 6. Create Stripe Checkout Session
+    // CRITICAL FIX: Use the 'success_url' provided by the frontend if available
+    // Fallback to origin header if not provided
+    const userOrigin = req.headers.get("origin") || "http://localhost:3000";
+    
+    // Prioritize the explict URL sent from frontend, then fallback to origin header
+    const finalSuccessUrl = success_url || `${userOrigin}/payment/success`;
+    const finalCancelUrl = cancel_url || `${userOrigin}/cancel`;
+
+    console.log("Creating session with Success URL:", finalSuccessUrl);
+
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ["card"],
+      line_items: [
+        {
+          price_data: {
+            currency: pkg.currency || "eur",
+            product_data: {
+              name: pkg.title,
+              description: pkg.description,
+              images: pkg.cover_image_url ? [pkg.cover_image_url] : [],
+            },
+            unit_amount: Math.round(pkg.price * 100), // in cents
+          },
+          quantity: 1,
+        },
+      ],
+      mode: "payment",
+      success_url: finalSuccessUrl,
+      cancel_url: finalCancelUrl,
+      client_reference_id: user.id,
+      metadata: {
+        package_id: pkg.id,
+        user_id: user.id,
+      },
+    });
+
+    return new Response(JSON.stringify({ checkout_url: session.url }), {
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+      status: 200,
+    });
+  } catch (error: any) {
+    return new Response(JSON.stringify({ error: error.message }), {
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+      status: 400,
+    });
+  }
+});
