@@ -25,7 +25,7 @@ const HUD: React.FC = () => {
   }, []);
 
   return (
-    <div className="fixed inset-0 z-50 pointer-events-none p-6 md:p-12 flex flex-col justify-between mix-blend-screen">
+    <div className="fixed inset-0 z-50 pointer-events-none p-6 md:p-12 flex flex-col justify-between mix-blend-screen fixed-gpu">
       {/* Top Bar */}
       <div className="flex justify-between items-start">
         <MotionDiv

@@ -6,7 +6,7 @@ const NoiseBackground: React.FC = () => {
   const MotionDiv = motion.div as any;
 
   return (
-    <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
+    <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none fixed-gpu">
       {/* Deep Space Gradient Base */}
       <div className="absolute inset-0 bg-gradient-to-b from-space-void via-space-DEFAULT to-space-void" />
 
