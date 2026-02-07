@@ -137,10 +137,10 @@ function App({ children }: { children?: React.ReactNode }) {
   }, []);
 
   return (
-    <div className="relative min-h-screen w-full bg-space-void text-white selection:bg-neon-lime/30 selection:text-neon-lime">
+    <div className="relative min-h-screen w-full bg-space-void text-white selection:bg-neon-lime/30 selection:text-neon-lime overflow-x-hidden">
       <NoiseBackground />
       <HUD />
-      <main className="relative z-10">
+      <main className="relative z-10 w-full max-w-full overflow-x-hidden">
         {children || <Router />}
       </main>
     </div>

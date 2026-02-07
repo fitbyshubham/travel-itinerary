@@ -1,26 +1,111 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --color-neon-lime: #ccff00;
+  --color-neon-blue: #00e5ff;
+  --color-neon-purple: #9d00ff;
+  --color-neon-pink: #ff007a;
 }
 
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #000411;
+    --foreground: #ffffff;
+    --neon-lime: #ccff00;
+    --neon-blue: #00e5ff;
+    --neon-purple: #9d00ff;
+    --neon-pink: #ff007a;
+    --space-void: #000411;
+  }
+
+  /* Prevent horizontal scroll globally */
+  html,
+  body {
+    max-width: 100vw;
+    overflow-x: hidden;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: var(--space-void);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Native Mobile Optimization */
+  * {
+    -webkit-tap-highlight-color: transparent;
+    box-sizing: border-box;
+  }
+
+  input,
+  button,
+  textarea,
+  select {
+    font-family: inherit;
+  }
+
+  /* Safe area handling for newer mobile devices */
+  body {
+    padding-bottom: env(safe-area-inset-bottom);
+    overscroll-behavior-y: none;
+    /* Prevent elastic bounce on some mobile browsers if preferred */
+  }
+}
+
+@layer utilities {
+  .glass-panel {
+    @apply bg-white/[0.03] backdrop-blur-xl border border-white/10 shadow-[0_8px_32px_0_rgba(0, 0, 0, 0.37)];
+  }
+
+  .font-tech {
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  }
+
+  .text-neon-lime {
+    color: #ccff00;
+  }
+
+  .text-neon-blue {
+    color: #00e5ff;
+  }
+
+  .text-neon-purple {
+    color: #9d00ff;
+  }
+
+  .text-neon-pink {
+    color: #ff007a;
+  }
+
+  .bg-neon-lime {
+    background-color: #ccff00;
+  }
+
+  .bg-neon-blue {
+    background-color: #00e5ff;
+  }
+
+  .bg-neon-purple {
+    background-color: #9d00ff;
+  }
+
+  .bg-neon-pink {
+    background-color: #ff007a;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
 }

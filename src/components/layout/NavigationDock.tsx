@@ -34,7 +34,8 @@ export default function NavigationDock({ pathname: externalPathname }: { pathnam
   ];
 
   return (
-    <nav className="fixed bottom-6 left-1/2 -translate-x-1/2 z-[100] w-auto flex flex-col items-center gap-4">
+    <nav className="fixed bottom-0 left-0 right-0 z-[100] flex flex-col items-center pb-[calc(1.5rem+env(safe-area-inset-bottom))] pointer-events-none">
+      <div className="pointer-events-auto flex flex-col items-center gap-4">
       {/* Expanded Menu */}
       <AnimatePresence>
         {isMenuOpen && (
@@ -138,6 +139,7 @@ export default function NavigationDock({ pathname: externalPathname }: { pathnam
           })}
         </div>
       </div>
-    </nav>
-  );
+    </div>
+  </nav>
+);
 }
