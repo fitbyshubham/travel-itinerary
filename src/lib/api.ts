@@ -109,7 +109,7 @@ export const authApi = {
       body: JSON.stringify({ email, password }),
     }),
   signup: (data: Record<string, unknown>) =>
-    api<LoginResponse>("/signup", {
+    api<LoginResponse>("/register", {
       method: "POST",
       body: JSON.stringify(data),
     }),
