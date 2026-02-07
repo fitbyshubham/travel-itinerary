@@ -42,10 +42,10 @@ export default function AuthenticatedLayout({
   const showBottomNav = hasToken && !hideBottomNav;
 
   return (
-    <div className="flex flex-col min-h-screen">
-      <div className={`flex-1 ${showBottomNav ? 'pb-24' : ''}`}>
+    <div className="relative">
+      <main className={showBottomNav ? "pb-24" : ""}>
         {children}
-      </div>
+      </main>
       {showBottomNav && <NavigationDock pathname={pathname} />}
     </div>
   );
