@@ -18,6 +18,7 @@ import {
   MessageCircle,
   Radio,
   Maximize2,
+  ChevronRight,
 } from "lucide-react";
 import CommentModal from "@/components/feed/CommentModal";
 import { FeedMediaCarousel } from "@/components/feed/FeedMediaCarousel";
@@ -250,13 +251,20 @@ export default function HomePage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
-                className="feed-card bg-[#050A15] border border-white/10 rounded-2xl overflow-hidden mb-8"
+                className="feed-card bg-[#050A15] border border-white/10 rounded-2xl overflow-hidden mb-8 active:scale-[0.98] transition-transform cursor-pointer"
+                onClick={() => handleViewItem(item.id)}
                 data-id={item.id}
               >
                 {/* Header */}
                 <div className="p-4 flex items-center justify-between border-b border-white/5">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-white/5 border border-white/10 overflow-hidden relative">
+                    <div 
+                      className="w-10 h-10 rounded-full bg-white/5 border border-white/10 overflow-hidden relative cursor-pointer"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        // Optional: Navigate to user profile
+                      }}
+                    >
                       <Image
                         src={item.user.avatar_url || "/avatars/default.jpg"}
                         alt={item.user.name}
@@ -283,7 +291,10 @@ export default function HomePage() {
                       </div>
                     </div>
                   </div>
-                  <button className="text-white/30 hover:text-white transition-colors">
+                  <button 
+                    className="text-white/30 hover:text-white transition-colors p-2 -mr-2"
+                    onClick={(e) => e.stopPropagation()}
+                  >
                     <MoreVertical className="w-4 h-4" />
                   </button>
                 </div>
@@ -292,7 +303,6 @@ export default function HomePage() {
                 <div className="relative aspect-[4/5] bg-black">
                   <FeedMediaCarousel
                     uploads={item.uploads}
-                    onClick={() => handleViewItem(item.id)}
                     shouldPlay={playingId === item.id}
                   />
                 </div>
@@ -303,7 +313,7 @@ export default function HomePage() {
                     <div className="flex items-center gap-4">
                       <button
                         onClick={(e) => handleLike(e, item.id)}
-                        className="flex items-center gap-1.5 group"
+                        className="flex items-center gap-1.5 group p-2 -ml-2"
                         disabled={likingIds.has(item.id)}
                       >
                         <Heart
@@ -318,7 +328,7 @@ export default function HomePage() {
 
                       <button
                         onClick={(e) => openCommentModal(e, item.id)}
-                        className="flex items-center gap-1.5 group"
+                        className="flex items-center gap-1.5 group p-2"
                       >
                         <MessageCircle className="w-6 h-6 text-white/60 group-hover:text-neon-blue transition-colors" />
                         <span className="text-sm font-mono text-white/40">
@@ -326,17 +336,17 @@ export default function HomePage() {
                         </span>
                       </button>
 
-                      <button className="text-white/60 hover:text-white transition-colors">
+                      <button 
+                        className="text-white/60 hover:text-white transition-colors p-2"
+                        onClick={(e) => e.stopPropagation()}
+                      >
                         <Share2 className="w-6 h-6" />
                       </button>
                     </div>
 
-                    <button
-                      onClick={() => handleViewItem(item.id)}
-                      className="text-white/30 hover:text-white transition-colors"
-                    >
-                      <Maximize2 className="w-5 h-5" />
-                    </button>
+                    <div className="flex items-center gap-2 text-white/20">
+                       <ChevronRight className="w-4 h-4" />
+                    </div>
                   </div>
 
                   {/* Caption */}

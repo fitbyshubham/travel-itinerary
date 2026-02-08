@@ -47,59 +47,68 @@ export async function api<T>(
   options: RequestInit = {},
 ): Promise<T> {
   const url = `${API_BASE_URL}/${endpoint.replace(/^\/+/, "")}`;
+  
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 15000); // 15 second timeout
 
-  const baseHeaders: Record<string, string> = {
-    "Content-Type": "application/json",
-  };
+  try {
+    const baseHeaders: Record<string, string> = {
+      "Content-Type": "application/json",
+    };
 
-  const authHeader = await getAuthHeader();
-  const userHeaders =
-    options.headers instanceof Headers
-      ? Object.fromEntries(options.headers.entries())
-      : options.headers && typeof options.headers === "object"
-        ? (options.headers as Record<string, string>)
-        : {};
+    const authHeader = await getAuthHeader();
+    const userHeaders =
+      options.headers instanceof Headers
+        ? Object.fromEntries(options.headers.entries())
+        : options.headers && typeof options.headers === "object"
+          ? (options.headers as Record<string, string>)
+          : {};
 
-  const headers: Record<string, string> = {
-    ...baseHeaders,
-    ...authHeader,
-    ...userHeaders,
-  };
+    const headers: Record<string, string> = {
+      ...baseHeaders,
+      ...authHeader,
+      ...userHeaders,
+    };
 
-  const config: RequestInit = {
-    ...options,
-    headers,
-  };
+    const config: RequestInit = {
+      ...options,
+      headers,
+      signal: controller.signal,
+    };
 
-  const res = await fetch(url, config);
+    const res = await fetch(url, config);
+    clearTimeout(timeoutId);
 
-  if (!res.ok) {
-    const errorData = await res.json().catch(() => ({}));
+    if (!res.ok) {
+      const errorData = await res.json().catch(() => ({}));
 
-    // Global 401 Interceptor
-    if (res.status === 401) {
-      if (typeof window !== "undefined") {
-        // Use Store Action to cleanup state and localStorage consistently
-        useAuthStore.getState().logout();
-
-        // Perform hard redirect to login if not already there
-        if (
-          window.location.pathname !== "/login" &&
-          window.location.pathname !== "/signup"
-        ) {
-          window.location.href = "/login";
+      // Global 401 Interceptor
+      if (res.status === 401) {
+        if (typeof window !== "undefined") {
+          useAuthStore.getState().logout();
+          if (
+            window.location.pathname !== "/login" &&
+            window.location.pathname !== "/signup"
+          ) {
+            window.location.href = "/login";
+          }
         }
+        throw new Error("SESSION_EXPIRED");
       }
-      throw new Error("SESSION_EXPIRED");
+
+      const errorMessage =
+        errorData.message || errorData.error || `HTTP ${res.status}`;
+      throw new Error(errorMessage);
     }
 
-    // Check for 'message' or 'error' in response body
-    const errorMessage =
-      errorData.message || errorData.error || `HTTP ${res.status}`;
-    throw new Error(errorMessage);
+    return res.json() as Promise<T>;
+  } catch (err: any) {
+    clearTimeout(timeoutId);
+    if (err.name === 'AbortError') {
+      throw new Error("REQUEST_TIMEOUT // CONNECTION_STALLED");
+    }
+    throw err;
   }
-
-  return res.json() as Promise<T>;
 }
 
 export const authApi = {

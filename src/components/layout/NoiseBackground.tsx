@@ -18,7 +18,7 @@ const NoiseBackground: React.FC = () => {
           x: [-50, 50, -50],
         }}
         transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-        className="absolute top-[-20%] left-[-10%] w-[800px] h-[800px] bg-neon-blue/10 rounded-full blur-[150px]"
+        className="absolute top-[-20%] left-[-10%] w-[800px] h-[800px] bg-neon-blue/10 rounded-full blur-[80px]"
       />
       <MotionDiv
         animate={{
@@ -26,14 +26,14 @@ const NoiseBackground: React.FC = () => {
           opacity: [0.1, 0.2, 0.1],
         }}
         transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-        className="absolute bottom-[-20%] right-[-10%] w-[600px] h-[600px] bg-neon-pink/10 rounded-full blur-[150px]"
+        className="absolute bottom-[-20%] right-[-10%] w-[600px] h-[600px] bg-neon-pink/10 rounded-full blur-[80px]"
       />
       <MotionDiv
         animate={{
           opacity: [0.05, 0.15, 0.05],
         }}
         transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-        className="absolute top-[40%] left-[50%] -translate-x-1/2 w-[400px] h-[400px] bg-neon-lime/5 rounded-full blur-[100px]"
+        className="absolute top-[40%] left-[50%] -translate-x-1/2 w-[400px] h-[400px] bg-neon-lime/5 rounded-full blur-[60px]"
       />
 
       {/* Grainy Noise Overlay */}

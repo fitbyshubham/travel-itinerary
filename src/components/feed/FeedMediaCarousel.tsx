@@ -45,13 +45,15 @@ const CarouselItem = ({
     );
   }
   return (
-    <Image
-      src={media.signed_url || media.url || ""}
-      alt="content"
-      fill
-      className="object-cover pointer-events-none select-none"
-      unoptimized
-    />
+    <div className="relative w-full h-full">
+      <Image
+        src={media.signed_url || media.url || ""}
+        alt="content"
+        fill
+        className="object-cover pointer-events-none select-none"
+        unoptimized
+      />
+    </div>
   );
 };
 
@@ -98,7 +100,7 @@ export const FeedMediaCarousel = ({
       <div
         ref={scrollRef}
         onScroll={handleScroll}
-        className="flex w-full h-full overflow-x-auto snap-x snap-mandatory scrollbar-hide touch-pan-x"
+        className="flex w-full h-full overflow-x-auto snap-x snap-mandatory scrollbar-hide touch-pan-x touch-pan-y"
         onClick={onClick}
       >
         {uploads.map((media, idx) => (
