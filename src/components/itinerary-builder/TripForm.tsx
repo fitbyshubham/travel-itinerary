@@ -10,7 +10,7 @@ import {
   Save,
   AlertCircle,
   Loader2,
-  DollarSign,
+  Euro,
   FileText,
 } from "lucide-react";
 import { useItineraryStore } from "@/lib/itinerary-store";
@@ -235,7 +235,7 @@ export const TripForm: React.FC = () => {
             Est. Cost
           </span>
           <div className="flex items-center gap-1 text-neon-lime">
-            <DollarSign className="w-4 h-4" />
+            <Euro className="w-4 h-4" />
             <span className="text-xl font-mono font-medium">
               {draft.estimatedCost.toLocaleString()} EUR
             </span>

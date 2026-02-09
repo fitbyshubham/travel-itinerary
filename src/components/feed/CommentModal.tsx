@@ -93,7 +93,16 @@ const CommentModal: React.FC<CommentModalProps> = ({
     try {
       const response = await feedApi.addComment(postId, commentText);
       if (response.success) {
-        setComments((prev) => [...prev, response.comment]);
+        // Enrich comment with current user info if missing
+        const newComment = {
+          ...response.comment,
+          commenter: response.comment.commenter || {
+            id: user?.id || "",
+            name: user?.name || user?.user_metadata?.name || "You",
+            avatar_url: user?.avatar_url || user?.user_metadata?.avatar_url
+          }
+        };
+        setComments((prev) => [...prev, newComment]);
         setCommentText("");
         if (onCommentAdded) {
           onCommentAdded();
@@ -143,9 +152,6 @@ const CommentModal: React.FC<CommentModalProps> = ({
                 </span>
                 <div className="w-1.5 h-1.5 bg-neon-lime rounded-full animate-pulse" />
               </div>
-              <span className="font-mono text-[9px] text-white/40">
-                Post ID :: {postId.slice(0, 8)}
-              </span>
             </div>
           </div>
 
@@ -199,7 +205,7 @@ const CommentModal: React.FC<CommentModalProps> = ({
                   {/* Line Number / Avatar */}
                   <div className="flex flex-col items-center gap-1 pt-1">
                     <span className="font-mono text-[8px] text-white/20">
-                      {(index + 1).toString().padStart(2, "0")}
+                      {index + 1}
                     </span>
                     <div className="w-7 h-7 rounded-sm bg-white/5 border border-white/10 overflow-hidden relative">
                       {comment.commenter?.avatar_url ? (
@@ -212,7 +218,7 @@ const CommentModal: React.FC<CommentModalProps> = ({
                         />
                       ) : (
                         <div className="w-full h-full flex items-center justify-center text-[10px] text-white/30 font-tech">
-                          ID
+                          <Activity className="w-3 h-3 opacity-20" />
                         </div>
                       )}
                     </div>
