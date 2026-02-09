@@ -461,8 +461,8 @@ export default function CreatePostPage() {
             </div>
           </div>
 
-          {/* Action Bar */}
-          <div className="fixed bottom-0 left-0 right-0 p-4 pb-8 md:pb-4 bg-[#000411]/90 backdrop-blur-xl border-t border-white/10 z-50">
+          {/* Action Bar - Offset for NavigationDock */}
+          <div className="fixed bottom-24 left-0 right-0 p-4 bg-[#000411]/90 backdrop-blur-xl border-t border-white/10 z-50">
             <div className="max-w-3xl mx-auto flex items-center justify-between gap-4">
               {error ? (
                 <div className="flex items-center gap-2 text-neon-pink animate-pulse">

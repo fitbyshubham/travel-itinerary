@@ -123,7 +123,7 @@ export default function EditProfileModal({
           </button>
         </div>
 
-        <div className="overflow-y-auto p-6 space-y-6 scrollbar-thin scrollbar-thumb-white/10">
+        <div className="overflow-y-auto p-6 pb-24 space-y-6 scrollbar-thin scrollbar-thumb-white/10">
           {/* Avatar Upload */}
           <div className="flex flex-col items-center gap-4">
             <div
@@ -210,7 +210,8 @@ export default function EditProfileModal({
                   </option>
                   <option value="male">Male</option>
                   <option value="female">Female</option>
-                  <option value="other">Other</option>
+                  <option value="non-binary">Non-Binary</option>
+                  <option value="undisclosed">Prefer not to say</option>
                 </select>
               </div>
 

@@ -18,7 +18,7 @@ export default function SignupPage() {
     email: "",
     password: "",
     name: "",
-    gender: "male" as "male" | "female" | "other",
+    gender: "male" as "male" | "female" | "non-binary" | "undisclosed",
     country: "EU",
     preferred_currency: "EUR",
     is_creator: false,
@@ -201,9 +201,10 @@ export default function SignupPage() {
                   onChange={(e) => updateField("gender", e.target.value)}
                   className="w-full h-14 bg-white/5 border border-white/5 rounded-2xl px-5 text-sm focus:outline-none focus:border-white/20 focus:bg-white/[0.08] transition-all text-white/80 appearance-none cursor-pointer"
                 >
-                  <option value="male">Male Traveler</option>
-                  <option value="female">Female Traveler</option>
-                  <option value="other">Non-Binary / Private</option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                  <option value="non-binary">Non-Binary</option>
+                  <option value="undisclosed">Prefer not to say</option>
                 </select>
                 <div className="pointer-events-none absolute right-5 top-1/2 -translate-y-1/2 text-white/20 text-[10px]">▼</div>
               </div>

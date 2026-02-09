@@ -20,7 +20,7 @@ export const Snackbar = () => {
   if (!open) return null;
 
   return (
-    <div className="fixed bottom-20 left-1/2 transform -translate-x-1/2 bg-red-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 animate-fade-in">
+    <div className="fixed bottom-20 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-neon-purple to-neon-blue text-white px-6 py-3 rounded-lg shadow-lg z-50 animate-fade-in border border-white/20">
       {message}
     </div>
   );

@@ -246,8 +246,8 @@ export const TripForm: React.FC = () => {
       {/* 2. Steps Module */}
       <StepsSection />
 
-      {/* 3. Action Module */}
-      <div className="sticky bottom-6 z-40 bg-[#000411]/80 backdrop-blur-xl border border-white/10 rounded-2xl p-4 flex items-center justify-between gap-4">
+      {/* 3. Action Module - Offset for NavigationDock */}
+      <div className="sticky bottom-24 z-40 bg-[#000411]/80 backdrop-blur-xl border border-white/10 rounded-2xl p-4 flex items-center justify-between gap-4">
         {error ? (
           <div className="flex items-center gap-2 text-neon-pink animate-pulse min-w-0">
             <AlertCircle className="w-4 h-4 shrink-0" />

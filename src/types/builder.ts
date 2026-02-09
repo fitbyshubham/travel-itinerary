@@ -8,7 +8,7 @@ export type TransportMode =
   | "walk"
   | "boat"
   | "other";
-export type Gender = "male" | "female" | "other";
+export type Gender = "male" | "female" | "non-binary" | "undisclosed";
 export type CostCategory =
   | "transportation"
   | "accommodation"

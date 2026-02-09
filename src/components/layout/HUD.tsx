@@ -61,9 +61,7 @@ const HUD: React.FC = () => {
           transition={{ duration: 1, delay: 0.5 }}
           className="text-right"
         >
-          <div className="flex items-center justify-end gap-2 mb-1">
-            <div className="w-1.5 h-1.5 bg-neon-lime animate-pulse rounded-full" />
-          </div>
+          {/* Status indicator removed */}
         </MotionDiv>
       </div>
 

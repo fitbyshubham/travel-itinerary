@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { MapPin, Calendar, DollarSign, X, Check } from "lucide-react";
+import { MapPin, Calendar, Euro, X, Check } from "lucide-react";
 import type { Stay } from "@/types/builder";
 
 interface StayFormProps {
@@ -105,7 +105,7 @@ export const StayForm: React.FC<StayFormProps> = ({ onSave, onCancel }) => {
         {/* Price & Currency */}
         <div className="flex gap-3">
           <div className="relative flex-1">
-            <DollarSign className="absolute left-3 top-2.5 w-4 h-4 text-white/30" />
+            <Euro className="absolute left-3 top-2.5 w-4 h-4 text-white/30" />
             <input
               type="number"
               placeholder="Cost"

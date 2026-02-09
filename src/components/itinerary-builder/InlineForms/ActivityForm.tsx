@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { MapPin, Clock, DollarSign, X, Check, Tag } from "lucide-react";
+import { MapPin, Clock, Euro, X, Check, Tag } from "lucide-react";
 import type { Activity } from "@/types/builder";
 
 interface ActivityFormProps {
@@ -125,7 +125,7 @@ export const ActivityForm: React.FC<ActivityFormProps> = ({
         {/* Price */}
         <div className="flex gap-3">
           <div className="relative flex-1">
-            <DollarSign className="absolute left-3 top-2.5 w-4 h-4 text-white/30" />
+            <Euro className="absolute left-3 top-2.5 w-4 h-4 text-white/30" />
             <input
               type="number"
               placeholder="Cost"

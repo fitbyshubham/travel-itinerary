@@ -223,7 +223,7 @@ const CommentModal: React.FC<CommentModalProps> = ({
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center justify-between mb-1">
                       <span className="font-tech text-[10px] text-neon-blue/80">
-                        User_{comment.commenter_id.slice(0, 4)}
+                        {comment.commenter?.name || `User_${comment.commenter_id.slice(0, 4)}`}
                       </span>
                       <div className="flex items-center gap-2">
                         <span className="font-mono text-[9px] text-white/20">
