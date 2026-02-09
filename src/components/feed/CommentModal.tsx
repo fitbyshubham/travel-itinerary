@@ -207,7 +207,7 @@ const CommentModal: React.FC<CommentModalProps> = ({
                     <span className="font-mono text-[8px] text-white/20">
                       {index + 1}
                     </span>
-                    <div className="w-7 h-7 rounded-sm bg-white/5 border border-white/10 overflow-hidden relative">
+                    <div className="w-7 h-7 rounded-full bg-white/5 border border-white/10 overflow-hidden relative">
                       {comment.commenter?.avatar_url ? (
                         <Image
                           src={comment.commenter.avatar_url}
